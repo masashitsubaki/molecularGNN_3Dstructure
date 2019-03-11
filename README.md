@@ -6,7 +6,7 @@ The learning curves (x-axis is the number of epochs (i.e., iterations)
 and y-axis is the error (MAE) in the unit of eV on the test dataset) are as follows:
 
 <div align="center">
-<p><img src="learning_curves.jpeg" width="600" /></p>
+<p><img src="learning_curves.jpeg" width="700" /></p>
 </div>
 
 These results can be reproduce by the two commands (see "Usage").
