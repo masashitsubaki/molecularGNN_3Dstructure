@@ -1,50 +1,67 @@
-# Quantum graph neural network (quantum GNN) for molecular property prediction
+# Graph neural network (GNN) for molecular property prediction (3D structure)
 
-This code is a simpler model and its implementation of "[Fast and Accurate Molecular Property Prediction: Learning Atomic Interactions and Potentials with Neural Networks (The Journal of Physical Chemistry Letters, 2018)](https://pubs.acs.org/doi/10.1021/acs.jpclett.8b01837)" in PyTorch.
+This code is a simpler version (different from the original paper) of our GNN model and its implementation for "[Fast and Accurate Molecular Property Prediction: Learning Atomic Interactions and Potentials with Neural Networks (The Journal of Physical Chemistry Letters, 2018)](https://pubs.acs.org/doi/10.1021/acs.jpclett.8b01837)" in PyTorch.
 
-The learning curves (x-axis is the number of epochs (i.e., iterations)
-and y-axis is the error (MAE) in the unit of eV on the test dataset) are as follows:
+An example of learning curve as follows.
 
-<div align="center">
-<p><img src="learning_curves.jpeg" width="700" /></p>
+<div align='center'>
+<p><img src="figures/learning.jpeg" width='500' /></p>
 </div>
 
-These results can be reproduce by the two commands (see "Usage").
+This result is completely reproduced by our code.
 
 
-## Characteristics
+## Characteristics of our implementation
 
-- This code is easy-to-use. The requirement is only PyTorch.
-Preprocessing a dataset and learning a model can be done by only two commands (see "Usage").
+- This code is easy-to-use for beginners. The requirement is only PyTorch.
+- Preprocessing a dataset and learning a GNN model can be done by only one command, "bash train.sh."
+- If you prepare another dataset with the same format as seen in our dataset directory, you can learn a GNN model with your dataset.
 
 
 ## Requirements
 
-- PyTorch
+- PyTorch (of course numpy and scipy)
 
 
 ## Usage
 
-We provide two major scripts:
+We provide two major scripts in the main directory as follows.
 
-- code/preprocess_data.py creates the input tensor data of molecules for processing with PyTorch from the original data (see dataset/original/data.txt).
-- code/run_training.py trains a quantum-GNN using the above preprocessed data to predict a molecular property.
+- "preprocessing.py" creates input tensor data from original text data (see dataset/QM9/data.txt).
+- "train.py" trains a GNN model using the preprocessed data to predict a molecular property.
 
-(i) Create the tensor data of molecules and their properties with the following command:
-```
-cd code
-bash preprocess_data.sh
-```
+You can easy to train a GNN model by the following command.
 
-(ii) Using the preprocessed data, train a quantum-GNN with the following command:
 ```
-bash run_training.sh
+cd main
+bash train.sh
 ```
 
-The training result and trained model are saved in the output directory (after training, see output/result and output/model).
+An image of running on google colaboratory is as follows.
 
-(iii) You can change the model hyperparameters in run_training.sh.
-Try to learn various models!
+<div align='center'>
+<p><img src="figures/train.jpeg" width='500' /></p>
+</div>
+
+You can also change the model hyperparameters described in train.sh (e.g., the dimensionality, number of hidden layers, and batch size).
+
+<div align='center'>
+<p><img src="figures/setting.jpeg" width='500' /></p>
+</div>
+
+Try to learn various GNN models to create and find your own best model for your dataset!
+
+
+## Learning a GNN with your dataset
+
+In the dataset directory, we provide the subset of QM9 dataset (see dataset/QM9/data.txt).
+The format is as follows.
+
+<div align='center'>
+<p><img src="figures/data.jpeg" width='500' /></p>
+</div>
+
+If you prepare a dataset with the same format in the above (but any molecular property), you can learn a GNN model with your dataset.
 
 
 ## How to cite
