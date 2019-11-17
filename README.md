@@ -5,7 +5,7 @@ This code is a simpler version (different from the original paper) of our GNN mo
 An example of learning curve as follows.
 
 <div align='center'>
-<p><img src="figures/learning.jpeg" width='500' /></p>
+<p><img src="figures/learning.jpeg" width='600' /></p>
 </div>
 
 This result is completely reproduced by our code.
@@ -40,13 +40,13 @@ bash train.sh
 An image of running on google colaboratory is as follows.
 
 <div align='center'>
-<p><img src="figures/train.jpeg" width='500' /></p>
+<p><img src="figures/train.jpeg" width='600' /></p>
 </div>
 
 You can also change the model hyperparameters described in train.sh (e.g., the dimensionality, number of hidden layers, and batch size).
 
 <div align='center'>
-<p><img src="figures/setting.jpeg" width='500' /></p>
+<p><img src="figures/setting.jpeg" width='600' /></p>
 </div>
 
 Try to learn various GNN models to create and find your own best model for your dataset!
@@ -58,7 +58,7 @@ In the dataset directory, we provide the subset of QM9 dataset (see dataset/QM9/
 The format is as follows.
 
 <div align='center'>
-<p><img src="figures/data.jpeg" width='500' /></p>
+<p><img src="figures/data.jpeg" width='600' /></p>
 </div>
 
 If you prepare a dataset with the same format in the above (but any molecular property), you can learn a GNN model with your dataset.
