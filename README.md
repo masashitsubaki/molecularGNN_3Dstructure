@@ -2,20 +2,20 @@
 
 This code is a simpler version (different from the original paper) of our GNN model and its implementation for "[Fast and Accurate Molecular Property Prediction: Learning Atomic Interactions and Potentials with Neural Networks (The Journal of Physical Chemistry Letters, 2018)](https://pubs.acs.org/doi/10.1021/acs.jpclett.8b01837)" in PyTorch.
 
-We show an example of the learning curve, which uses a subset of the QM9 as training dataset (# of samples is 10k), as follows.
+We show an example of the learning curve, which uses a subset of the QM9 dataset (the molecular size is less than 14), as follows.
 
 <div align='center'>
 <p><img src="figures/learning.jpeg" width='500' /></p>
 </div>
 
-This result is completely reproduced by our code and one command (see "Usage").
+This result can be completely reproduced by our code and one command (see "Usage").
 
 
 ## Characteristics of our implementation
 
 - This code is easy-to-use for beginners. The requirement is only PyTorch.
 - Preprocessing a dataset and learning a GNN model can be done by only one command, "bash train.sh."
-- If you prepare another dataset with the same format as seen in our dataset directory, you can learn a GNN model with your dataset.
+- If you prepare another dataset with the same format as seen in the directory, dataset/QM9/data.txt, you can learn a GNN model with your dataset.
 
 
 ## Requirements
@@ -27,7 +27,7 @@ This result is completely reproduced by our code and one command (see "Usage").
 
 We provide two major scripts in the main directory as follows.
 
-- "preprocessing.py" creates input tensor data from original text data (see dataset/QM9/data.txt).
+- "preprocessing.py" creates tensor data from original text data (see dataset/QM9/data.txt).
 - "train.py" trains a GNN model using the preprocessed data to predict a molecular property.
 
 You can easy to train a GNN model by the following command.
@@ -49,19 +49,18 @@ You can also change the model hyperparameters described in train.sh (e.g., the d
 <p><img src="figures/setting.jpeg" width='500' /></p>
 </div>
 
-Try to learn various GNN models to create and find your own best model for your dataset!
+Try to learn various GNN models to find your own best model for your dataset!
 
 
 ## Learning a GNN with your dataset
 
-In the dataset directory, we provide the subset of QM9 dataset (see dataset/QM9/data.txt).
-The format is as follows.
+In the dataset directory, we provide a subset of the QM9 dataset (see dataset/QM9/data.txt), which the format is as follows.
 
 <div align='center'>
-<p><img src="figures/data.jpeg" width='500' /></p>
+<p><img src="figures/dataset.jpeg" width='500' /></p>
 </div>
 
-If you prepare a dataset with the same format in the above (but any molecular property), you can learn a GNN model with your dataset.
+If you prepare a dataset with the same format (any molecular property can be used!), you can learn a GNN model with your dataset.
 
 
 ## How to cite
