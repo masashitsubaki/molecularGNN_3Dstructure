@@ -18,7 +18,7 @@ This result can be completely reproduced by our code and one command (see "Usage
 - If you prepare another dataset with the same format as seen in the directory, dataset/QM9/data.txt, you can learn a GNN model with your dataset.
 
 
-## Requirements
+## Requirement
 
 - PyTorch (of course numpy and scipy)
 
