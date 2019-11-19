@@ -16,7 +16,7 @@ class MolecularGraphNeuralNetwork(nn.Module):
         super(MolecularGraphNeuralNetwork, self).__init__()
         self.embed_atom = nn.Embedding(N_atoms, dim)
         self.gamma = nn.ModuleList([nn.Embedding(N_atoms, 1)
-                                   for _ in range(layer_hidden)])
+                                    for _ in range(layer_hidden)])
         self.W_atom = nn.ModuleList([nn.Linear(dim, dim)
                                      for _ in range(layer_hidden)])
         self.W_output = nn.ModuleList([nn.Linear(dim, dim)
@@ -24,6 +24,12 @@ class MolecularGraphNeuralNetwork(nn.Module):
         self.W_property = nn.Linear(dim, 1)
 
     def pad(self, matrices, pad_value):
+        """Pad the list of matrices
+        with a pad_value (e.g., 0) for batch processing.
+        For example, given a list of matrices [A, B, C],
+        we obtain a new matrix [A00, 0B0, 00C],
+        where 0 is the zero (i.e., pad value) matrix.
+        """
         shapes = [m.shape for m in matrices]
         M, N = sum([s[0] for s in shapes]), sum([s[1] for s in shapes])
         zeros = torch.FloatTensor(np.zeros((M, N))).to(device)
@@ -40,10 +46,6 @@ class MolecularGraphNeuralNetwork(nn.Module):
         hidden_vectors = torch.relu(self.W_atom[layer](vectors))
         return hidden_vectors + torch.matmul(matrix, hidden_vectors)
 
-    # def update(self, matrix, vectors, layer):
-    #     hidden_vectors = self.W_atom[layer](vectors)
-    #     return torch.relu(hidden_vectors + torch.matmul(matrix, hidden_vectors))
-
     def sum(self, vectors, axis):
         sum_vectors = [torch.sum(v, 0) for v in torch.split(vectors, axis)]
         return torch.stack(sum_vectors)
@@ -56,12 +58,13 @@ class MolecularGraphNeuralNetwork(nn.Module):
         atoms = torch.cat(atoms)
         distance_matrix = self.pad(distance_matrices, 1e6)
 
-        """GNN layer."""
+        """GNN layer (update atom vectors)."""
         atom_vectors = self.embed_atom(atoms)
         for l in range(layer_hidden):
             gammas = torch.squeeze(self.gamma[l](atoms))
             M = torch.exp(-gammas*distance_matrix**2)
             atom_vectors = self.update(M, atom_vectors, l)
+            atom_vectors = F.normalize(atom_vectors, 2, 1)  # normalize.
 
         """Output layer."""
         for l in range(layer_output):
@@ -88,9 +91,9 @@ class MolecularGraphNeuralNetwork(nn.Module):
             with torch.no_grad():
                 predicted_properties = self.forward(inputs)
             ts = correct_properties.to('cpu').data.numpy()
-            zs = predicted_properties.to('cpu').data.numpy()
-            ts, zs = np.concatenate(ts), np.concatenate(zs)
-            sum_absolute_error = sum(np.abs(ts-zs))
+            ys = predicted_properties.to('cpu').data.numpy()
+            ts, ys = np.concatenate(ts), np.concatenate(ys)
+            sum_absolute_error = sum(np.abs(ts-ys))
             return sum_absolute_error
 
 

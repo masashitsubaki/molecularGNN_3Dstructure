@@ -15,23 +15,12 @@ layer_hidden=6
 layer_output=6
 
 # The setting for optimization.
-batch_train=64
-batch_test=64
+batch_train=32
+batch_test=32
 lr=1e-3
 lr_decay=0.99
 decay_interval=10
-iteration=2000
+iteration=3000
 
 setting=$DATASET--$property--dim$dim--layer_hidden$layer_hidden--layer_output$layer_output--batch_train$batch_train--batch_test$batch_test--lr$lr--lr_decay$lr_decay--decay_interval$decay_interval--iteration$iteration
 python train.py $DATASET $property $dim $layer_hidden $layer_output $batch_train $batch_test $lr $lr_decay $decay_interval $iteration $setting
-
-
-
-
-
-
-
-
-
-
-
