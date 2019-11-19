@@ -2,13 +2,13 @@
 
 This code is a simpler version (different from the original paper) of our GNN model and its implementation for "[Fast and Accurate Molecular Property Prediction: Learning Atomic Interactions and Potentials with Neural Networks (The Journal of Physical Chemistry Letters, 2018)](https://pubs.acs.org/doi/10.1021/acs.jpclett.8b01837)" in PyTorch.
 
-An example of learning curve as follows.
+We show an example of the learning curve, which uses a subset of the QM9 as training dataset (# of samples is 10k), as follows.
 
 <div align='center'>
 <p><img src="figures/learning.jpeg" width='500' /></p>
 </div>
 
-This result is completely reproduced by our code.
+This result is completely reproduced by our code and one command (see "Usage").
 
 
 ## Characteristics of our implementation
