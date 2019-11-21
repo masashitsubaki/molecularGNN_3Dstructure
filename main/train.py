@@ -12,7 +12,7 @@ import preprocess as pp
 
 
 class MolecularGraphNeuralNetwork(nn.Module):
-    def __init__(self):
+    def __init__(self, N_atoms, dim, layer_hidden, layer_output):
         super(MolecularGraphNeuralNetwork, self).__init__()
         self.embed_atom = nn.Embedding(N_atoms, dim)
         self.gamma = nn.ModuleList([nn.Embedding(N_atoms, 1)
@@ -52,13 +52,12 @@ class MolecularGraphNeuralNetwork(nn.Module):
 
     def forward(self, inputs):
 
-        atoms, distance_matrices, molecular_sizes = inputs
-
         """Cat or pad each input data for batch processing."""
+        atoms, distance_matrices, molecular_sizes = inputs
         atoms = torch.cat(atoms)
         distance_matrix = self.pad(distance_matrices, 1e6)
 
-        """GNN layer (update atom vectors)."""
+        """GNN layer (update the atom vectors)."""
         atom_vectors = self.embed_atom(atoms)
         for l in range(layer_hidden):
             gammas = torch.squeeze(self.gamma[l](atoms))
@@ -130,14 +129,14 @@ class Tester(object):
         MAE = SAE / N
         return MAE
 
-    def save_errors(self, errors, filename):
+    def save_result(self, result, filename):
         with open(filename, 'a') as f:
-            f.write(errors + '\n')
+            f.write(result + '\n')
 
 
 if __name__ == "__main__":
 
-    (DATASET, property, dim, layer_hidden, layer_output,
+    (dataset, property, dim, layer_hidden, layer_output,
      batch_train, batch_test, lr, lr_decay, decay_interval, iteration,
      setting) = sys.argv[1:]
     (dim, layer_hidden, layer_output, batch_train, batch_test, decay_interval,
@@ -153,10 +152,10 @@ if __name__ == "__main__":
         print('The code uses a CPU...')
     print('-'*100)
 
-    print('Preprocessing the', DATASET, 'dataset.')
+    print('Preprocessing the', dataset, 'dataset.')
     print('Just a moment......')
     (dataset_train, dataset_dev, dataset_test,
-     N_atoms) = pp.create_datasets(DATASET, property, device)
+     N_atoms) = pp.create_datasets(dataset, property, device)
     print('-'*100)
 
     print('The preprocess has finished!')
@@ -166,8 +165,9 @@ if __name__ == "__main__":
     print('-'*100)
 
     print('Creating a model.')
-    torch.manual_seed(1234)
-    model = MolecularGraphNeuralNetwork().to(device)
+    torch.manual_seed(1234)  # initialize the model with a random seed.
+    model = MolecularGraphNeuralNetwork(
+            N_atoms, dim, layer_hidden, layer_output).to(device)
     trainer = Trainer(model)
     tester = Tester(model)
     print('# of model parameters:',
@@ -176,15 +176,14 @@ if __name__ == "__main__":
 
     for i in range(layer_hidden):
         ones = nn.Parameter(torch.ones((N_atoms, 1))).to(device)
-        model.gamma[i].weight.data = ones
+        model.gamma[i].weight.data = ones  # initialize gamma with ones.
 
-    file_errors = '../output/errors--' + setting + '.txt'
-    file_model = '../output/model--' + setting
+    file_result = '../output/result--' + setting + '.txt'
 
-    errors = ('Epoch\tTime(sec)\tLoss_train(MSE)\t'
+    result = ('Epoch\tTime(sec)\tLoss_train(MSE)\t'
               'Error_dev(MAE)\tError_test(MAE)')
-    with open(file_errors, 'w') as f:
-        f.write(errors + '\n')
+    with open(file_result, 'w') as f:
+        f.write(result + '\n')
 
     print('Start training.')
     print('The result is saved in the output directory every epoch!')
@@ -212,12 +211,12 @@ if __name__ == "__main__":
             print('The training will finish in about',
                   hours, 'hours', minutes, 'minutes.')
             print('-'*100)
-            print(errors)
+            print(result)
 
-        error = '\t'.join(map(str, [epoch, time, loss_train,
-                                    error_dev, error_test]))
-        tester.save_errors(error, file_errors)
+        result = '\t'.join(map(str, [epoch, time, loss_train,
+                                     error_dev, error_test]))
+        tester.save_result(result, file_result)
 
-        print(error)
+        print(result)
 
     print('The training has finished!')
