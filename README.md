@@ -57,7 +57,7 @@ Try to learn various GNN models to find your own best model for your dataset!
 In the dataset directory, we provide a subset of the QM9 dataset (see dataset/QM9/data.txt), which the format is as follows.
 
 <div align='center'>
-<p><img src="figures/dataset.jpeg" width='500' /></p>
+<p><img src="figures/data.jpeg" width='500' /></p>
 </div>
 
 If you prepare a dataset with the same format (any molecular property can be used!), you can learn a GNN model with your dataset.
