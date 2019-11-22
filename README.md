@@ -33,7 +33,8 @@ We provide two major scripts in the main directory as follows.
 You can easy to train a GNN model by the following command.
 
 ```
-cd main
+git clone https://github.com/masashitsubaki/molecularGNN_3Dstructure.git
+cd molecularGNN_3Dstructure/main
 bash train.sh
 ```
 
