@@ -32,9 +32,9 @@ def split_dataset(dataset, ratio):
     return dataset[:n], dataset[n:]
 
 
-def create_datasets(DATASET, physical_property, device):
+def create_datasets(dataset, physical_property, device):
 
-    dir_dataset = '../dataset/' + DATASET + '/'
+    dir_dataset = '../dataset/' + dataset + '/'
 
     """Initialize atom_dict, in which
     each key is an atom type and each value is its index.
