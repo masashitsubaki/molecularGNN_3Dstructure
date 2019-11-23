@@ -30,14 +30,20 @@ We provide two major scripts in the main directory as follows.
 - "preprocessing.py" creates tensor data from original text data (see dataset/QM9/data.txt).
 - "train.py" trains a GNN model using the preprocessed data to predict a molecular property.
 
-You can easy to train a GNN model by the following command.
+You can easy to train a GNN model by the following commands.
 
+Clone our repository,
 ```
 git clone https://github.com/masashitsubaki/molecularGNN_3Dstructure.git
+```
+change directory, 
+```
 cd molecularGNN_3Dstructure/main
+```
+and run the bash file for training.
+```
 bash train.sh
 ```
-
 An image of running on google colaboratory is as follows.
 
 <div align='center'>
