@@ -1,7 +1,7 @@
 # Graph neural network (GNN) for molecular property prediction (3D structure)
 
 
-### _**Important: this repository will not be further developed and maintained because we have shown and believe that graph neural networks or graph convolutional networks is incorrect and useless for modeling molecules in [our paper in NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/1534b76d325a8f591b52d302e7181331-Abstract.html). Please consider switching to our new and simple machine learning model called [quantum deep field](https://github.com/masashitsubaki/QuantumDeepField_molecule).**_
+#### _**Important: this repository will not be further developed and maintained because we have shown and believe that graph neural networks or graph convolutional networks is incorrect and useless for modeling molecules in [our paper in NeurIPS 2020](https://proceedings.neurips.cc/paper/2020/hash/1534b76d325a8f591b52d302e7181331-Abstract.html). Please consider switching to our new and simple machine learning model called [quantum deep field](https://github.com/masashitsubaki/QuantumDeepField_molecule).**_
 
 
 This code is a simpler version (different from the original paper) of our GNN model and its implementation for "[Fast and Accurate Molecular Property Prediction: Learning Atomic Interactions and Potentials with Neural Networks (The Journal of Physical Chemistry Letters, 2018)](https://pubs.acs.org/doi/10.1021/acs.jpclett.8b01837)" in PyTorch.
